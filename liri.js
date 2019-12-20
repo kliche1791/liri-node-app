@@ -1,9 +1,10 @@
-
 require("dotenv").config();
 var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
-//var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
+
+
 
 var call = process.argv[2];
 var  action	= process.argv.slice(3).join(" ");
@@ -47,7 +48,7 @@ if(call === "movie-this"){
             console.log("i enter to here ");
           // If the axios was successful...
           // Then log the body from the site!
-          console.log(response.data);
+          console.log(response.title);
           //console.log(response.name);
          // console.log(response.venue.city +" "+response.venue.region);
 
@@ -71,4 +72,14 @@ if(call === "movie-this"){
           console.log(error.config);
         }
       );
+}
+
+if(call=== "spotify-this-song"){
+    spotify.search({ type: 'track', query: action }, function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+       
+      console.log(data); 
+      });
 }
