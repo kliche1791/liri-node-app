@@ -3,7 +3,7 @@ var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
-
+var moment = require('moment');
 
 
 var call = process.argv[2];
@@ -13,13 +13,15 @@ var urlMovie = " http://www.omdbapi.com/?t="+action+"&apikey=trilogy";
 if (call === "concert-this"){
     axios.get(urlBand).then(
         function(response) {
-            console.log("i enter to here ");
-          // If the axios was successful...
-          // Then log the body from the site!
-          console.log(response.data);
-          //console.log(response.name);
-         // console.log(response.venue.city +" "+response.venue.region);
-
+          
+         // console.log(response.data[0]);
+         for (var i = 0; i < response.data.length; i++) {
+            var date =   moment(response.data[i].datetime).format('MMMM Do YYYY, h:mm:ss a');
+          console.log(date);
+          console.log(response.data[i].venue.name);
+         console.log(response.data[i].venue.city +" "+response.data[i].venue.region);
+         console.log("-----------------------------------------------------------------------");
+         }
         },
       
         function(error) {
@@ -45,13 +47,19 @@ if (call === "concert-this"){
 if(call === "movie-this"){
     axios.get(urlMovie).then(
         function(response) {
-            console.log("i enter to here ");
+
           // If the axios was successful...
           // Then log the body from the site!
-          console.log(response.title);
-          //console.log(response.name);
-         // console.log(response.venue.city +" "+response.venue.region);
-
+          console.log(response.data.Title);
+          console.log(response.data.Year);
+          console.log(response.data.Title);
+          console.log(response.data.Title);
+          console.log(response.data.Title);
+          console.log(response.data.Title);
+          console.log(response.data.Title);
+          console.log(response.data.Title);
+          console.log("-----------------------------------------------------------------------");
+          
         },
       
         function(error) {
